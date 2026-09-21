@@ -1,0 +1,388 @@
+PROJETO AV01
+COMPLEXIDADE E COMPUTABILIDADE DE ALGORITMO
+Professor: Herriotr
+
+INTEGRANTES
+1. Rony Arthur Meireles Medeiros - RGM 38490021
+2. Mateus Moreira y Moreira Feitosa- RGM 38752905
+3. Petrus Alecsander da Silva Arimatea- RGM 38690497
+4. ______________________________
+5. ______________________________
+
+
+============================================================
+FUNÇÃO 1 - CONTAGEM DE OCORRÊNCIAS DISTINTAS
+============================================================
+
+PSEUDOCÓDIGO
+
+FUNÇÃO contar_ocorrencias(vetor, n, buscados, k)
+    total <- 0
+
+    PARA i <- 0 ATÉ k - 1
+        ocorrencias <- 0
+
+        PARA j <- 0 ATÉ n - 1
+            SE buscados[i] = vetor[j]
+                ocorrencias <- ocorrencias + 1
+            FIM SE
+        FIM PARA
+
+        total <- total + ocorrencias
+    FIM PARA
+
+    RETORNE total
+FIM FUNÇÃO
+
+
+COMPLEXIDADE DAS OPERAÇÕES
+
+total <- 0                         1
+inicialização de i                1
+teste do for externo              k + 1
+incremento de i                   k
+ocorrencias <- 0                  k
+inicialização de j                k
+teste do for interno              k(n + 1)
+incremento de j                   kn
+comparação                        kn
+ocorrencias++ (pior caso)         kn
+total += ocorrencias              k
+return                            1
+
+Expressão adotada:
+T(n,k) = 4nk + 7k + 4
+
+Big O:
+O(nk)
+
+
+CÁLCULO DE TEMPO
+
+n = 50.000
+k = 4.000
+
+T = 4(50.000)(4.000) + 7(4.000) + 4
+T = 800.028.004 instruções
+
+Considerando 10^8 = 100.000.000 instruções por segundo:
+
+Tempo = 800.028.004 / 100.000.000
+Tempo ≈ 8,00028 segundos
+
+Resultado aproximado: 8 segundos.
+
+
+============================================================
+FUNÇÃO 2 - ANÁLISE DE PARES EM MATRIZ TRIANGULAR
+============================================================
+
+PSEUDOCÓDIGO
+
+FUNÇÃO analisar_matriz(A, n)
+    contador <- 0
+
+    PARA i <- 0 ATÉ n - 1
+        PARA j <- i ATÉ n - 1
+            soma <- A[i][j] + A[j][i]
+
+            SE soma % 5 = 0
+                contador <- contador + 1
+            FIM SE
+        FIM PARA
+    FIM PARA
+
+    RETORNE contador
+FIM FUNÇÃO
+
+
+COMPLEXIDADE
+
+O laço interno percorre somente a diagonal principal e a metade
+superior da matriz.
+
+Quantidade de repetições:
+
+n + (n - 1) + (n - 2) + ... + 1
+
+S = n(n + 1) / 2
+
+No corpo de cada repetição, considerando as operações principais:
+
+soma = A[i][j] + A[j][i]          1
+teste soma % 5 == 0               1
+contador++ no pior caso           1
+
+Assim:
+
+T(n) ≈ 3 * n(n + 1) / 2
+T(n) ≈ (3n² + 3n) / 2
+
+Big O:
+O(n²)
+
+
+CÁLCULO DE TEMPO
+
+n = 500
+
+S = 500(501) / 2
+S = 125.250 repetições
+
+T ≈ 3 * 125.250
+T ≈ 375.750 instruções
+
+Tempo ≈ 375.750 / 100.000.000
+Tempo ≈ 0,0037575 segundo
+
+Resultado aproximado: 0,00376 segundo.
+
+
+============================================================
+FUNÇÃO 3 - COMPARAÇÃO DE MATRIZES TRIDIMENSIONAIS
+============================================================
+
+PSEUDOCÓDIGO
+
+FUNÇÃO comparar_matrizes(A, B, n)
+    somaA <- 0
+    somaB <- 0
+
+    PARA i <- 0 ATÉ n - 1
+        PARA j <- 0 ATÉ n - 1
+            PARA k <- 0 ATÉ n - 1
+                somaA <- somaA + A[i][j][k]
+            FIM PARA
+        FIM PARA
+    FIM PARA
+
+    PARA i <- 0 ATÉ n - 1
+        PARA j <- 0 ATÉ n - 1
+            PARA k <- 0 ATÉ n - 1
+                somaB <- somaB + B[i][j][k]
+            FIM PARA
+        FIM PARA
+    FIM PARA
+
+    SE somaA >= somaB
+        RETORNE 1
+    SENÃO
+        RETORNE 0
+    FIM SE
+FIM FUNÇÃO
+
+
+COMPLEXIDADE
+
+Cada arranjo possui n³ elementos.
+
+Percorrer A: n³
+Percorrer B: n³
+
+Considerando as operações dominantes de soma:
+
+T(n) ≈ 2n³
+
+Big O:
+O(n³)
+
+
+CÁLCULO DE TEMPO
+
+n = 300
+
+300³ = 27.000.000
+
+T ≈ 2(27.000.000)
+T ≈ 54.000.000 instruções
+
+Tempo ≈ 54.000.000 / 100.000.000
+Tempo ≈ 0,54 segundo
+
+Resultado aproximado: 0,54 segundo.
+
+
+============================================================
+FUNÇÃO 4 - ANÁLISE DE CASOS ASSIMÉTRICOS NO CONDICIONAL
+============================================================
+
+PSEUDOCÓDIGO
+
+FUNÇÃO processar_vetor(V, n)
+    somatorio <- 0
+
+    PARA i <- 0 ATÉ n - 1
+        SE V[i] for PAR
+            somatorio <- somatorio + V[i]
+        SENÃO
+            fatorial <- 1
+
+            PARA j <- 1 ATÉ V[i]
+                fatorial <- fatorial * j
+            FIM PARA
+
+            somatorio <- somatorio + fatorial
+        FIM SE
+    FIM PARA
+
+    RETORNE somatorio
+FIM FUNÇÃO
+
+
+COMPLEXIDADE
+
+Caso PAR:
+O(1) para o processamento daquele elemento.
+
+Caso ÍMPAR:
+o cálculo iterativo do fatorial executa uma quantidade de
+iterações proporcional ao valor V[i].
+
+Se m representar o maior valor cujo fatorial é calculado,
+no pior caso:
+
+T(n,m) ≈ n * m
+
+Big O geral:
+O(nm)
+
+Se os valores armazenados no vetor forem limitados por uma
+constante, m é constante e a complexidade em função de n é:
+
+O(n)
+
+
+CÁLCULO DE TEMPO
+
+O enunciado fornece:
+
+n = 50.000 no pior caso.
+
+Entretanto, não informa qual deve ser o valor dos elementos
+ímpares usados no cálculo de fatorial. Por isso, somente n não
+determina um número único de instruções para esse pior caso.
+
+A expressão do tempo fica:
+
+Tempo ≈ (n * m) / 10^8
+
+Para n = 50.000:
+
+Tempo ≈ (50.000 * m) / 100.000.000
+Tempo ≈ m / 2.000 segundos
+
+Assim, o tempo numérico depende dos valores dos elementos
+ímpares do vetor.
+
+
+============================================================
+FUNÇÃO 5 - CONTAGEM DE ELEMENTOS PRESENTES EM VETOR ORDENADO
+============================================================
+
+PSEUDOCÓDIGO DA BUSCA BINÁRIA
+
+FUNÇÃO busca_binaria(B, n, elemento)
+    inicio <- 0
+    fim <- n - 1
+
+    ENQUANTO inicio <= fim
+        meio <- inicio + (fim - inicio) / 2
+
+        SE B[meio] = elemento
+            RETORNE 1
+        FIM SE
+
+        SE B[meio] < elemento
+            inicio <- meio + 1
+        SENÃO
+            fim <- meio - 1
+        FIM SE
+    FIM ENQUANTO
+
+    RETORNE 0
+FIM FUNÇÃO
+
+
+Complexidade da busca binária:
+O(log n)
+
+
+PSEUDOCÓDIGO DA FUNÇÃO PRINCIPAL
+
+FUNÇÃO contar_elementos(A, B, n)
+    total <- 0
+
+    PARA i <- 0 ATÉ n - 1
+        encontrado <- busca_binaria(B, n, A[i])
+
+        SE encontrado = 1
+            total <- total + 1
+        FIM SE
+    FIM PARA
+
+    RETORNE total
+FIM FUNÇÃO
+
+
+COMPLEXIDADE
+
+O laço principal executa n vezes.
+
+Cada chamada da busca binária custa aproximadamente log2(n).
+
+Assim:
+
+T(n) ≈ n log2(n)
+
+Big O:
+O(n log n)
+
+
+CÁLCULO DE TEMPO
+
+n = 10.000.000
+
+log2(10.000.000) ≈ 23,25
+
+T ≈ 10.000.000 * 23,25
+T ≈ 232.500.000 instruções
+
+Tempo ≈ 232.500.000 / 100.000.000
+Tempo ≈ 2,325 segundos
+
+Resultado aproximado: 2,33 segundos.
+
+
+============================================================
+RESUMO
+============================================================
+
+Função 1: O(nk)
+Entrada: n = 50.000 e k = 4.000
+Tempo aproximado: 8,00 s
+
+Função 2: O(n²)
+Entrada: n = 500
+Tempo aproximado: 0,00376 s
+
+Função 3: O(n³)
+Entrada: n = 300
+Tempo aproximado: 0,54 s
+
+Função 4: O(nm) no pior caso geral
+Entrada: n = 50.000
+Tempo: depende do valor m dos elementos ímpares.
+Se m for limitado por uma constante, a complexidade em n é O(n).
+
+Função 5: O(n log n)
+Entrada: n = 10.000.000
+Tempo aproximado: 2,33 s
+
+
+OBSERVAÇÃO SOBRE A CONTAGEM
+
+A contagem numérica de instruções considera operações básicas
+conforme a convenção adotada nesta análise. Dependendo da convenção
+utilizada pelo professor para contabilizar inicializações, testes,
+incrementos e acessos, as constantes da expressão podem variar.
+As classes assintóticas Big O permanecem as indicadas acima.
