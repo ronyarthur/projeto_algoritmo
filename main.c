@@ -1,7 +1,9 @@
 //INTEGRANTES1. 
 // Rony Arthur Meireles Medeiros - RGM 384900212. 
 // Mateus Moreira y Moreira Feitosa- RGM 387529053. 
-// Petrus Alecsander da Silva Arimatea- RGM 38690497 
+// Petrus Alecsander da Silva Arimatea- RGM 38690497.
+//Alexandre Tavares Da Silva Filho RGM- 03811058-0
+
 
 #include <stdio.h>
 #include <stdlib.h>
